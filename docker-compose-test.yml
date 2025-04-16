@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7                         # Pulls the official MySQL 5.7 image
+    container_name: mysql-container          # Container will be named "mysql-container"
+    restart: always                          # Ensures MySQL restarts automatically on failure or reboot
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass123       # Sets the root password
+      MYSQL_DATABASE: myapp_db               # Creates a database named "myapp_db"
+      MYSQL_USER: mysql_user                 # Creates a non-root user "mysql_user"
+      MYSQL_PASSWORD: mypass123              # Sets the password for "mysql_user"
+    ports:
+      - "3306:3306"                          # Maps container's 3306 to host's 3306 (for external DB access)
+    volumes:
+      - ./mysql_data:/var/lib/mysql          # ✅ Bind mount: host folder mapped to container's data dir
+
+# No named volumes declared here; bind mount is managed by the file system
